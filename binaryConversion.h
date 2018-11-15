@@ -4,11 +4,6 @@
 	Module Code: 	AC21009
 */
 
-#include <cstdlib>
-
-//Using the standard name space.
-using namespace std;
-
 class BinaryConversion {
 	public:
 		/* Function for converting a decimal number to a binary array. */
