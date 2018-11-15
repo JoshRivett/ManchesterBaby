@@ -18,6 +18,12 @@ class BabySimulator {
 		int PI;	//Present instruction. Holds actual opcode to be executed.
 
 	public:
+		/* Constructor. */
+		BabySimulator();
+
+		/* Destructor. */
+		~BabySimulator();
+
 		/* Fetch. */
 		int fetch();
 		

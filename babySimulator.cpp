@@ -8,6 +8,14 @@
 #include "babySimulator.h"
 #include "binaryConversion.h"
 
+/* Constructor. */
+BabySimulator::BabySimulator() {
+	CI = 0;
+}
+
+/* Destructor. */
+BabySimulator::~BabySimulator() {}
+
 /* Fetch. */
 int BabySimulator::fetch() {
 
@@ -38,8 +46,7 @@ int BabySimulator::printOut() {
 
 /* Increments the control instruction by 1. */
 int BabySimulator::incrementCI() {
-
-
+	CI++;
 	return SUCCESS;
 }
 		
