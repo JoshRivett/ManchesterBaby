@@ -72,8 +72,11 @@ int	BabySimulator::LDN() {
 }
 		
 /* Function 3: Copy the content of the accumulator to the specified store line. */
-int	BabySimulator::STO() {
-
+int	BabySimulator::STO(int line) {
+	//Loops through the accumulator and stores each of the bits in the requested store line.
+	for (int i = 0; i < accumulatorSize; i++) {
+		store[line][i] = accumulator[i];
+	}
 
 	return SUCCESS;
 }

@@ -9,11 +9,16 @@
 
 enum BabyError { SUCCESS };
 
+//Declares the required constand values.
+const int storeLines = 32;		//The number of lines the store has.
+const int storeBits = 32;		//The number of bits each line in the store can hold.
+const int accumulatorSize = 32;	//The number of bits the accumulator can hold.
+
 class BabySimulator {
 	private:
 		//Declares the fields required by the baby.
-		int store[32][32];		//32 lines, each holding 32 bits.
-		int accumulator[32];	//Holds results of arithmetic operations.
+		int store[storeLines][storeBits];		//32 lines, each holding 32 bits.
+		int accumulator[accumulatorSize];		//Holds results of arithmetic operations.
 		int CI;	//Control instruction. Holds line number of next instruction.
 		int PI;	//Present instruction. Holds actual opcode to be executed.
 
