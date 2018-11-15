@@ -3,7 +3,7 @@
 	Matric Number: 	170005367
 	Module Code: 	AC21009
 	References:
-		Both functions were taken from my cellular automaton code.
+		Both functions were taken from my cellular automaton code and adapted for C++ and negative number handling.
 */
 
 #include <cstdlib>
