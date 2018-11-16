@@ -10,7 +10,7 @@
 #ifndef BABY_SIMULATOR_H
 #define BABY_SIMULATOR_H
 
-enum BabyError { SUCCESS };
+enum BabyError { SUCCESS, FILE_OPEN_FAILED, BAD_FILE };
 
 //Declares the required constand values.
 const int storeLines = 32;		//The number of lines the store has.
@@ -44,6 +44,9 @@ class BabySimulator {
 		/* Print out. */
 		int printOut();
 
+		/* Loads a program from file into the store. */
+		int loadProgram(std::string);
+
 		/* Increments the control instruction by 1. */
 		int incrementCI();
 		
@@ -63,7 +66,7 @@ class BabySimulator {
 		int	SUB(int);
 		
 		/* Function 6: If the accumulator is less than 0 increment the CI. */
-		int	CMP(int);
+		int	CMP();
 		
 		/* Function 7: Halt the Baby. */
 		int	STP();

@@ -5,12 +5,27 @@
 */
 
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "babySimulator.h"
 #include "binaryConversion.h"
 
+//Using the standard namespace.
+using namespace std;
+
 /* Constructor. */
 BabySimulator::BabySimulator() {
+	//Initialises the control and present instruction.
 	CI = 0;
+	PI = 0;
+
+	//Initialises the store's bits to 0.
+	for (int i = 0; i < storeLines; i++) {
+		for (int j = 0; j < storeBits; j++) {
+			store[i][j] = 0;
+		}
+	}
 }
 
 /* Destructor. */
@@ -39,7 +54,13 @@ int BabySimulator::execute() {
 		
 /* Print out. */
 int BabySimulator::printOut() {
-
+	//Test code to print out the store.
+	for (int i = 0; i < storeLines; i++) {
+		for (int j = 0; j < storeBits; j++) {
+			cout << store[i][j];
+		}
+		cout << endl;
+	}
 
 	return SUCCESS;
 }
@@ -48,6 +69,61 @@ int BabySimulator::printOut() {
 int BabySimulator::incrementCI() {
 	//Adds 1 to the control instruction.
 	CI++;
+
+	return SUCCESS;
+}
+
+/* Loads a program from file into the store. */
+int BabySimulator::loadProgram(string fileName) {
+	//Declares the required variables.
+	char input;
+	int line = 0;
+	int bit = 0;
+
+	//Tries to open the code file.
+	ifstream codeFile(fileName);
+
+	//Checks if the file was successfully opened.
+	if (codeFile.is_open()) {
+		//Loops while the end of the file has not been reached.
+		while (!codeFile.eof()) {
+			//Gets the next character from file.
+			codeFile.get(input);
+			
+			//Checks if the character is a '0' or '1'.
+			if (input == '0' || input == '1') {
+				//Makes sure there is still space on the line to store the bit.
+				if (bit >= storeBits) {
+					//The line in the file is too long for the store so an error code is returned.
+					cout << "File line length too long." << endl;
+					return BAD_FILE;
+				}
+
+				//Converts the character to an int, stores it in the store, and increments the bit counter.
+				store[line][bit] = input - '0';
+				bit++;
+			//Checks ifthe end of the line has been reached.
+			} else if (input == '\n') {
+				//Makes sure the number of lines in the file has not exceeded what the store can hold.
+				if (line > storeLines) {
+					//There are too many lines for the store to hold so an error code is returned.
+					cout << "Too many lines in file." << endl;
+					return BAD_FILE;
+				}
+
+				//Resets the bit counter and increments the line counter.
+				bit = 0;
+				line++;
+			}
+		}
+
+		//Closes the file.
+		codeFile.close();
+	} else {
+		//File was not opened successfully so an error code is returned.
+		cout << "Unable to open file." << endl;
+		return FILE_OPEN_FAILED;
+	}
 
 	return SUCCESS;
 }
@@ -126,12 +202,12 @@ int	BabySimulator::SUB(int line) {
 /* Function 6: If the accumulator is less than 0 increment the CI.
 	line - the line of the store to be manipulated.
 */
-int	BabySimulator::CMP(int line) {
+int	BabySimulator::CMP() {
 	//Declares the required variables.
 	long accumulatorValue;
 
 	//Converts the accumulator value to a decimal number.
-	accumulatorValue = BinaryConversion::toDecimal(store[line], storeBits);
+	accumulatorValue = BinaryConversion::toDecimal(accumulator, storeBits);
 
 	//Checks if the accumulator value is less than 0 and if so, increments the control instruction.
 	if (accumulatorValue < 0) {
