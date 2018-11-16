@@ -55,6 +55,9 @@ class BabySimulator {
 		/* Loads a program from file into the store. */
 		int loadProgram(std::string);
 
+		/* Method to find the address of the line current stored in the control instruction. */
+		int getAddress();
+
 		/* Increments the control instruction by 1. */
 		int incrementCI();
 		

@@ -8,6 +8,7 @@ using namespace std;
 int main() {
 	BabySimulator baby;
 	int instruction;
+	int error;
 
 	baby.loadProgram("BabyTest1-MC.txt");
 
@@ -21,7 +22,11 @@ int main() {
 			return 1;
 		}
 
-		baby.execute(baby.getCI(), instruction);
+		error = baby.execute(baby.getAddress(), instruction);
+
+		if (error == EXECUTE_FAILED) {
+			return 2;
+		}
 	}
 
 	return 0;

@@ -27,6 +27,11 @@ BabySimulator::BabySimulator() {
 			store[i][j] = 0;
 		}
 	}
+
+	//Initialises the accumulator.
+	for (int i = 0; i < accumulatorSize; i++) {
+		accumulator[i] = 0;
+	}
 }
 
 /* Destructor. */
@@ -93,31 +98,24 @@ int BabySimulator::decode() {
 int BabySimulator::execute(int line, int instruction) {
 	switch (instruction) {
 		case JMP:
-			cout << "JMP" << endl;
 			jmp(line);
 			break;
 		case JRP:
-			cout << "JRP" << endl;
 			jrp(line);
 			break;
 		case LDN:
-			cout << "LDN" << endl;
 			ldn(line);
 			break;
 		case STO:
-			cout << "STO" << endl;
 			sto(line);
 			break;
 		case SUB:
-			cout << "SUB" << endl;
 			sub(line);
 			break;
 		case CMP:
-			cout << "CMP" << endl;
 			cmp();
 			break;
 		case STP:
-			cout << "STP" << endl;
 			stp();
 			break;
 		default:
@@ -133,11 +131,20 @@ int BabySimulator::execute(int line, int instruction) {
 int BabySimulator::printOut() {
 	//Test code to print out the store.
 	for (int i = 0; i < storeLines; i++) {
+		cout << i << ":\t";
 		for (int j = 0; j < storeBits; j++) {
 			cout << store[i][j];
 		}
 		cout << endl;
 	}
+
+	cout << endl << "Accumulator: ";
+
+	for (int i = 0; i < accumulatorSize; i++) {
+		cout << accumulator[i];
+	}
+
+	cout << endl << endl;
 
 	return SUCCESS;
 }
@@ -214,13 +221,18 @@ int BabySimulator::loadProgram(string fileName) {
 
 	return SUCCESS;
 }
+
+/* Method to find the address pointed to by the line current stored in the control instruction. */
+int BabySimulator::getAddress() {
+	return BinaryConversion::toDecimal(store[CI], 5, false);
+}
 		
 /* Function 0: Copy content of the specified line into the CI.
 	line - the line of the store to be manipulated.
 */
 int BabySimulator::jmp(int line) {
 	//Converts the requested store line to decimal and copies it to the control instruction.
-	CI = BinaryConversion::toDecimal(store[line], 5, true);
+	CI = BinaryConversion::toDecimal(store[line], 5, false);
 
 	return SUCCESS;
 }
@@ -230,7 +242,7 @@ int BabySimulator::jmp(int line) {
 */
 int BabySimulator::jrp(int line) {
 	//Converts the requested store line to decimal, negates it, and adds it to the control instruction.
-	CI += -1 * BinaryConversion::toDecimal(store[line], 5, true);
+	CI += -1 * BinaryConversion::toDecimal(store[line], storeBits, true);
 
 	return SUCCESS;
 }
@@ -278,7 +290,7 @@ int	BabySimulator::sub(int line) {
 
 	//Converts the requested store line, as well as the accumulator, to decimal values.
 	storeValue = BinaryConversion::toDecimal(store[line], storeBits, true);
-	accumulatorValue = BinaryConversion::toDecimal(store[line], storeBits, true);
+	accumulatorValue = BinaryConversion::toDecimal(accumulator, accumulatorSize, true);
 
 	//Subtracts the store value from the accumulator value, converts the result back to binary, and stores it in the accumulator.
 	BinaryConversion::toBinary((accumulatorValue-storeValue), accumulator, accumulatorSize);
