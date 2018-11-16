@@ -10,10 +10,10 @@
 class BinaryConversion {
 	public:
 		/* Function for converting a decimal number to a binary array. */
-		static long toBinary(long, long*, int);
+		static int toBinary(long, int*, int);
 
 		/* Function to convert an array of binary integers to a decimal number. */
-		static long toDecimal(long*, int);
+		static long toDecimal(int*, int);
 };
 
 #endif

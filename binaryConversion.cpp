@@ -17,9 +17,9 @@ using namespace std;
 	*binary	- the array to store the binary number in.
 	length	- the length of the array.
 */
-long BinaryConversion::toBinary(long decimal, long *binary, int length) {
+int BinaryConversion::toBinary(long decimal, int *binary, int length) {
 	//Declares the required variables.
-	int i = length - 1;
+	int i = 0;
 	bool negative = false;
 
 	//Checks if the decimal number is negative.
@@ -37,7 +37,7 @@ long BinaryConversion::toBinary(long decimal, long *binary, int length) {
 	//Converts the rule to an array of binary digits.
 	while (decimal > 0) {
 		binary[i] = decimal % 2;
-		i--;
+		i++;
 		decimal /= 2;
 	}
 
@@ -54,10 +54,10 @@ long BinaryConversion::toBinary(long decimal, long *binary, int length) {
 
 		//Declares and initialises required variables.
 		bool add = false;
-		i = length - 1;
+		i = 0;
 
 		//Loops until 1 is successfully added or the start of the array is reached.
-		while(add == false && i >= 0) {
+		while(add == false && i < length) {
 			//Checks whether the bit is a 1 or 0.
 			if (binary[i] == 0) {
 				//Sets the bit to 1 and sets add to true as 1 was successfully added.
@@ -67,8 +67,8 @@ long BinaryConversion::toBinary(long decimal, long *binary, int length) {
 				//Sets the bit to 0 and carries the 1.
 				binary[i] = 0;
 			}
-			//Decrements the counter.
-			i--;
+			//Increments the counter.
+			i++;
 		}
 	}
 
@@ -80,7 +80,7 @@ long BinaryConversion::toBinary(long decimal, long *binary, int length) {
 	length		- the length of the array.
 	Returns the decimal equivalent to the binary number passed in.
 */
-long BinaryConversion::toDecimal(long *binaryInt, int length) {
+long BinaryConversion::toDecimal(int *binaryInt, int length) {
 	//Initialises the required variables.
 	char *binaryString = new char[length];
 	char *ptr;
@@ -88,13 +88,13 @@ long BinaryConversion::toDecimal(long *binaryInt, int length) {
 	bool negative = false;
 
 	//Checks the sign bit to see if the binary number is negative.
-	if (binaryInt[0] == 1) {
+	if (binaryInt[length-1] == 1) {
 		negative = true;
 	}
 
 	//Converts the integer array to a character array.
 	for (int i = 0; i < length; i++) {
-		binaryString[i] = binaryInt[i] + '0';
+		binaryString[i] = binaryInt[length - (i+1)] + '0';
 	}
 
 	//Converts the binary string to a long int.
