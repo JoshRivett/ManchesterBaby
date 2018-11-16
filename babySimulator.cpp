@@ -129,7 +129,14 @@ int BabySimulator::execute(int line, int instruction) {
 		
 /* Print out. */
 int BabySimulator::printOut() {
-	//Test code to print out the store.
+	//Declares the required variables.
+	int controlInstruction[storeBits];
+
+	//Converts the control instruction to binary.
+	BinaryConversion::toBinary(CI, controlInstruction, storeBits);
+
+	//Prints the contents of the store to the console.
+	cout << "Store: " << endl;
 	for (int i = 0; i < storeLines; i++) {
 		cout << i << ":\t";
 		for (int j = 0; j < storeBits; j++) {
@@ -138,13 +145,20 @@ int BabySimulator::printOut() {
 		cout << endl;
 	}
 
-	cout << endl << "Accumulator: ";
-
+	//Prints the contents of the accumulator to the console.
+	cout << endl << "Accumulator:\t";
 	for (int i = 0; i < accumulatorSize; i++) {
 		cout << accumulator[i];
 	}
 
-	cout << endl << endl;
+	//Prints the contents of the control instruction.
+	cout << endl << "CI:\t\t";
+	for (int i = 0; i < storeBits; i++) {
+		cout << controlInstruction[i];
+	}
+
+	//Prints the state of the stop lamp.
+	cout << endl << "Stop Lamp:\t" << stopLamp << endl << endl;
 
 	return SUCCESS;
 }
