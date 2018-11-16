@@ -13,7 +13,7 @@ class BinaryConversion {
 		static int toBinary(long, int*, int);
 
 		/* Function to convert an array of binary integers to a decimal number. */
-		static long toDecimal(int*, int);
+		static long toDecimal(int*, int, bool);
 };
 
 #endif

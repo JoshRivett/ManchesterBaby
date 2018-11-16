@@ -80,16 +80,19 @@ int BinaryConversion::toBinary(long decimal, int *binary, int length) {
 	length		- the length of the array.
 	Returns the decimal equivalent to the binary number passed in.
 */
-long BinaryConversion::toDecimal(int *binaryInt, int length) {
+long BinaryConversion::toDecimal(int *binaryInt, int length, bool signBit) {
 	//Initialises the required variables.
 	char *binaryString = new char[length];
 	char *ptr;
 	long decimal;
 	bool negative = false;
 
-	//Checks the sign bit to see if the binary number is negative.
-	if (binaryInt[length-1] == 1) {
-		negative = true;
+	//Checks if the binary number is using a sign bit.
+	if (signBit) {
+		//Checks the sign bit to see if the binary number is negative.
+		if (binaryInt[length-1] == 1) {
+			negative = true;
+		}
 	}
 
 	//Converts the integer array to a character array.
