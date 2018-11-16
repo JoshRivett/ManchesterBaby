@@ -130,10 +130,13 @@ int BabySimulator::execute(int line, int instruction) {
 /* Print out. */
 int BabySimulator::printOut() {
 	//Declares the required variables.
-	int controlInstruction[storeBits];
+	int controlInstruction[storeBits], presentInstruction[3];
 
 	//Converts the control instruction to binary.
 	BinaryConversion::toBinary(CI, controlInstruction, storeBits);
+
+	//Converts the present instruction to binary.
+	BinaryConversion::toBinary(PI, presentInstruction, 3);
 
 	//Prints the contents of the store to the console.
 	cout << "Store: " << endl;
@@ -155,6 +158,12 @@ int BabySimulator::printOut() {
 	cout << endl << "CI:\t\t";
 	for (int i = 0; i < storeBits; i++) {
 		cout << controlInstruction[i];
+	}
+
+	//Prints the contents of the present instruction.
+	cout << endl << "PI:\t\t";
+	for (int i = 0; i < 3; i++) {
+		cout << presentInstruction[i];
 	}
 
 	//Prints the state of the stop lamp.
