@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include "babySimulator.h"
 #include "binaryConversion.h"
 
