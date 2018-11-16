@@ -41,14 +41,9 @@ int BabySimulator::fetch() {
 	incrementCI();
 
 	//Fetches the instruction from the memory address stored in the control instruction.
-	for (int i = 13; i <= 15; i++) {
-		binary[i] = store[CI][i];
-		cout << binary[i] << " " << store[CI][i] << endl;
+	for (int i = 0; i < 3; i++) {
+		binary[i] = store[CI][i+13];
 	}
-
-	int test = BinaryConversion::toDecimal(binary, 3, false);
-
-	cout << test << endl;
 
 	//Converts the binary for the instruction to decimal.
 	PI = BinaryConversion::toDecimal(binary, 3, false);
@@ -235,7 +230,7 @@ int BabySimulator::jmp(int line) {
 */
 int BabySimulator::jrp(int line) {
 	//Converts the requested store line to decimal, negates it, and adds it to the control instruction.
-	CI += -1 * BinaryConversion::toDecimal(store[line], storeBits, true);
+	CI += -1 * BinaryConversion::toDecimal(store[line], 5, true);
 
 	return SUCCESS;
 }
