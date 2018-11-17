@@ -18,16 +18,22 @@ void readFile()
 	
 	convertedMC.open("ConvertedMachineCode.txt");
 				
-	while (std::getline(infile, line))
+	while (std::getline(infile, line))//Up to here reads file
 	{		
 
-		std::string binaryConvert = line.substr(0, line.find(";"));
+		std::string assemblyCode = line.substr(0, line.find(";"));
 
-		binaryConvert += ";";
+		assemblyCode += ";";
+		//makes file easier to convert by removing comments on each line
 
-		std::cout << binaryConvert << std::endl;
+		std::string machineCode = convertToBinary(assemblyCode);
+		//converts assembly to machine code
 
-		convertedMC << binaryConvert << endl;
+		std::cout << machineCode << std::endl;
+		//prints machine code into console
+
+		convertedMC << machineCode << endl;
+		//writes machine code into file to later be run by hardware simulator
 
 	}
 	convertedMC.close();
