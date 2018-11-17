@@ -11,14 +11,33 @@
 //Using the standard name space.
 using namespace std;
 
-int main() {
+enum MainError { NO_ARGUMENT = 101, LOAD_FAILED = 102, GET_DECODE_FAILED = 103, EXECUTION_FAILED = 104 };
+
+/* The main function of the program.
+	argc	- the number of arguments passed to the program.
+	*argv	- the array of arguments passed to the program.
+*/
+int main(int argc, char *argv[]) {
 	//Declares the required variables.
 	BabySimulator baby;
 	int instruction;
 	int error;
+	string fileName;
 
-	//Loads the program from file and prints the starting state of the baby.
-	baby.loadProgram("BabyTest1-MC.txt");
+	//Checks if any command line arguments were given.
+	if (argc > 1) {
+		fileName = argv[1];
+	} else {
+		cout << "Error: No file name given." << endl;
+		return NO_ARGUMENT;
+	}
+
+	//Tries to load the program from file.
+	if (baby.loadProgram(fileName) != SUCCESS) {
+		return LOAD_FAILED;
+	}
+
+	//Prints the starting state of the baby.
 	baby.printOut();
 
 	//Runs the fetch execute cycle until the program is complete.
@@ -31,7 +50,7 @@ int main() {
 
 		//Checks if the decode operation failed.
 		if (instruction == DECODE_FAILED) {
-			return 1;
+			return GET_DECODE_FAILED;
 		}
 
 		//Executes the instruction.
@@ -39,7 +58,7 @@ int main() {
 
 		//Checks if the execution of the instruction failed.
 		if (error == EXECUTE_FAILED) {
-			return 2;
+			return EXECUTION_FAILED;
 		}
 
 		//Prints the current state of the baby.

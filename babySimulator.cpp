@@ -86,7 +86,7 @@ int BabySimulator::decode() {
 	}
 
 	//The program failed to decode the instruction and so an error code is returned.
-	cout << "Failed to decode the present instruction." << endl;
+	cout << "Error: Failed to decode the present instruction." << endl;
 	return DECODE_FAILED;
 }
 		
@@ -118,7 +118,7 @@ int BabySimulator::execute(int line, int instruction) {
 			stp();
 			break;
 		default:
-			cout << "Failed to execute the present instruction." << endl;
+			cout << "Error: Failed to execute the present instruction." << endl;
 			return EXECUTE_FAILED;
 			break;
 	}
@@ -211,7 +211,7 @@ int BabySimulator::loadProgram(string fileName) {
 				//Makes sure there is still space on the line to store the bit.
 				if (bit >= storeBits) {
 					//The line in the file is too long for the store so an error code is returned.
-					cout << "File line length too long." << endl;
+					cout << "Error: File line length too long." << endl;
 					return BAD_FILE;
 				}
 
@@ -223,7 +223,7 @@ int BabySimulator::loadProgram(string fileName) {
 				//Makes sure the number of lines in the file has not exceeded what the store can hold.
 				if (line > storeLines) {
 					//There are too many lines for the store to hold so an error code is returned.
-					cout << "Too many lines in file." << endl;
+					cout << "Error: Too many lines in file." << endl;
 					return BAD_FILE;
 				}
 
@@ -237,7 +237,7 @@ int BabySimulator::loadProgram(string fileName) {
 		codeFile.close();
 	} else {
 		//File was not opened successfully so an error code is returned.
-		cout << "Unable to open file." << endl;
+		cout << "Error: Unable to open file '" << fileName << "'." << endl;
 		return FILE_OPEN_FAILED;
 	}
 
