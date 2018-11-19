@@ -129,8 +129,11 @@ int BabyAssembler::loadAssemblyFile(string fileName) {
 					field[i] = "";
 				}
 
-				//Increments the line number counter.
-				lineNumber++;
+				//Checks if the line is empty.
+				if (assemblyCode[lineNumber][INSTRUCTION] != "") {
+					//Increments the line number counter.
+					lineNumber++;
+				}
 			} else {
 				//Resets the comment variable.
 				comment = false;
@@ -186,7 +189,7 @@ int BabyAssembler::convertToMachineCode() {
 					//Checks if the instruction was found successfully.
 					if (instruction == INSTRUCTION_NOT_FOUND) {
 						//The instruction could not be found so the conversion is aborted.
-						cout << "Error: Unknown instruction '" << instruction << "'." << endl;
+						cout << "Error: Unknown instruction '" << instruction << "' on line " << line << "." << endl;
 						return CONVERSION_FAILED;
 
 					//Checks if current line is to be declared as a variable.
