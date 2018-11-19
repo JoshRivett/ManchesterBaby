@@ -1,8 +1,7 @@
 /*
-	Names:			Christian Hegarty,	Naqash Nadeem,	Nicole Orr,	Josh Rivett,	Shaun Yap
-	Matric Number: 	170025705			160010238		170010591	170005367		160006581
+	Name: 			Josh Rivett
+	Matric Number: 	170005367
 	Module Code: 	AC21009
-	Team Number:	15
 */
 
 #ifndef BINARY_CLASS_H

@@ -1,7 +1,8 @@
-/* 
-  Name: Nicole Orr
-  Matric number: 170010591
-  Module code: AC21009
+/*
+	Names:			Christian Hegarty,	Naqash Nadeem,	Nicole Orr,	Josh Rivett,	Shaun Yap
+	Matric Number: 	170025705			160010238		170010591	170005367		160006581
+	Module Code: 	AC21009
+	Team Number:	15
 */
 
 #ifndef SYMBOL_CLASS
