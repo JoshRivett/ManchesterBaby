@@ -1,0 +1,20 @@
+	  JMP 0    ;
+START:	  LDN NUM02   ; loads negative numerator
+	  STO NUM02   ; stores it
+	  LDN NUM02   ; loads numerator
+	  SUB NUM01   ; subtracts denominator
+	  STO NUM02   ; stores new numerator
+	  LDN NUM05   ; loads negative number of divisions
+	  STO NUM05   ; stores it
+	  LDN NUM05   ; loads number of divisions
+	  SUB NUM04   ; adds 1 to number of divisions
+	  STO NUM05   ; stores it
+	  CMP 	      ; compares if numerator is negative
+	  JMP NUM03   ; jumps to instruction 
+END:	  STP       ;	  
+NUM01:    VAR 6     ; Declare 32-bit variable denominator
+NUM02:    VAR 2     ; Declare 32-bit variable numerator
+NUM03:    VAR 1     ; Declare 32-bit variable jump to instruction 1
+NUM04:    VAR -1     ; Declare 32-bit variable iterator
+NUM05:    VAR 0     ; Declare 32-bit variable number of times divided
+
